@@ -1,7 +1,7 @@
 #Game Hub
   -Self-Project for CodeWithMosh React Course
 
-**Technology Stack**
+**Technology Stack**</br>
  React
  Typescript
  TailwindCSS
