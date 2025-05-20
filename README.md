@@ -2,7 +2,7 @@
 Self-Project for CodeWithMosh React Course
 -- 20/05/2025 --
 
-## Technology Stack**
+## Technology Stack
  **Frontend**: React, Typescript, TailwindCSS, framer-motion
  **Integrated API**: Rawg.io API
  
