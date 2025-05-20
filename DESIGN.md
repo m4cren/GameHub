@@ -8,7 +8,7 @@
     </td>
     <td width="50%">
       <p><strong>Mobile View</strong></p>
-      <img src="./figmaUI/Phone.png" width="500"/>
+      <img src="./figmaUI/Phone.png" width="250"/>
     </td>
   </tr>
   
