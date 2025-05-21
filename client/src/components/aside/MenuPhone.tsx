@@ -4,11 +4,16 @@ import { useTheme } from "../../contexts/ThemeContextProvider";
 import { useState } from "react";
 import CategoryList from "./CategoryList";
 
+interface MenuPhoneProps {
+    handleSelectedCategory: (category: string) => void;
+    handleToggle: (action: "toggle" | "untoggle") => void;
+    selectedCategory: string;
+}
 const MenuPhone = ({
     handleToggle,
-}: {
-    handleToggle: (action: "toggle" | "untoggle") => void;
-}) => {
+    handleSelectedCategory,
+    selectedCategory,
+}: MenuPhoneProps) => {
     const { themes } = useTheme();
     const [isClosing, setIsClosing] = useState<boolean>(false);
 
@@ -21,7 +26,7 @@ const MenuPhone = ({
     };
     return (
         <div
-            className={`${themes === "dark" ? "bg-[rgba(0,0,0,0.7)] border-1 border-[rgba(255,255,255,0.3)]" : "bg-[rgba(255,255,255,0.1)] [box-shadow:-2px_2px_5px_rgba(0,0,0,0.2)]"} ${isClosing && "untoggle-menu"} toggle-menu fixed z-1 h-[94vh] w-[80vw] transition durion-200  backdrop-blur-2xl right-0 bottom-0 rounded-l-2xl  pointer-events-auto`}
+            className={`${themes === "dark" ? "bg-[rgba(0,0,0,0.7)] border-1 border-[rgba(255,255,255,0.3)]" : "bg-[rgba(255,255,255,0.1)] [box-shadow:-2px_2px_5px_rgba(0,0,0,0.2)]"} ${isClosing && "untoggle-menu"} toggle-menu fixed z-1 h-[94vh] md:h-[70vh] w-[80vw] md:w-[50vw] transition durion-200  backdrop-blur-2xl right-0 bottom-0 rounded-l-2xl  pointer-events-auto`}
         >
             <div className="flex flex-row justify-between px-8 py-8 items-center">
                 <DarkMode />
@@ -30,7 +35,10 @@ const MenuPhone = ({
             <hr
                 className={`${themes === "dark" ? "opacity-35" : "opacity-10"} mb-8`}
             />
-            <CategoryList />
+            <CategoryList
+                handleSelectedCategory={handleSelectedCategory}
+                selectedCategory={selectedCategory}
+            />
         </div>
     );
 };

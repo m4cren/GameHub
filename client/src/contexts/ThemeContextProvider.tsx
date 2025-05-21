@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import {
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+    type ReactNode,
+} from "react";
 
 interface ThemeContextProps {
     themes: "light" | "dark";
@@ -12,10 +18,21 @@ const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
     const toggleTheme = () => {
         if (themes === "dark") {
             setTheme("light");
+            localStorage.setItem("theme", "light");
         } else {
             setTheme("dark");
+            localStorage.setItem("theme", "dark");
         }
     };
+
+    useEffect(() => {
+        const saved_theme = localStorage.getItem("theme");
+        if (saved_theme === "dark") {
+            setTheme("dark");
+        } else {
+            setTheme("light");
+        }
+    }, []);
     return (
         <ThemeContext.Provider value={{ themes, toggleTheme }}>
             {children}

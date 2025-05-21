@@ -1,17 +1,19 @@
 .main {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 6rem 1fr;
+    grid-template-rows: 6rem 1fr 8rem;
     grid-template-areas:
         "   nav     "
-        "   main    ";
+        "   main    "
+        " footer ";
 
     @media (min-width: 810px) {
-        grid-template-columns: 22rem 1fr;
+        grid-template-columns: 22rem 1fr 6rem;
         grid-template-rows: 8rem;
         grid-template-areas:
             "   nav     nav"
-            "   aside   main    ";
+            "   aside   main    "
+            "   footer  footer";
     }
 }
 nav {
@@ -26,4 +28,7 @@ aside {
 }
 main {
     grid-area: main;
+}
+footer {
+    grid-area: footer;
 }
