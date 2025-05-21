@@ -12,4 +12,14 @@
     </td>
   </tr>
   
+  <tr>
+ 
+    <td width="50%">
+      <p><strong>Desktop View</strong></p>
+      <img src="./figmaUI/PhoneMenu.png" width="250"/>
+    </td>
+
+  </tr>
+  
+  
 </table>
