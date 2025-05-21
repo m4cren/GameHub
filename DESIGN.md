@@ -11,15 +11,11 @@
       <img src="./figmaUI/Phone.png" width="250"/>
     </td>
   </tr>
-  
-  <tr>
- 
+   <tr>
     <td width="50%">
-      <p><strong>Desktop View</strong></p>
+      <p><strong>Mobile View</strong></p>
       <img src="./figmaUI/PhoneMenu.png" width="250"/>
     </td>
-
   </tr>
-  
   
 </table>
