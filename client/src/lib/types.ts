@@ -74,3 +74,15 @@ export type GameTypes = {
    suggestions_count: number;
    tags: TagTypes[];
 };
+
+export type GenresListTypes = {
+   games: {
+      id: number;
+      name: string;
+      slug: string;
+   }[];
+   id: number;
+   image_background: string;
+   name: string;
+   slug: string;
+};

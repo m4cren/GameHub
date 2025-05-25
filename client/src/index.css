@@ -1,57 +1,62 @@
 @import "tailwindcss";
 @font-face {
-    font-family: "Space Grotesk";
-    src: url("/fonts/SpaceGrotesk-VariableFont_wght.ttf");
-    font-weight: 100 900;
-    font-style: normal;
+   font-family: "Space Grotesk";
+   src: url("/fonts/SpaceGrotesk-VariableFont_wght.ttf");
+   font-weight: 100 900;
+   font-style: normal;
 }
 
 * {
-    font-family: "Space Grotesk";
+   font-family: "Space Grotesk";
 }
 
 .toggle-menu {
-    animation: toggleMenu 0.3s ease-in;
+   animation: toggleMenu 0.3s ease-in;
 }
 .untoggle-menu {
-    animation: untoggleMenu 0.3s ease-out;
+   animation: untoggleMenu 0.3s ease-out;
 }
 @keyframes toggleMenu {
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(0%);
-    }
+   from {
+      transform: translateX(100%);
+   }
+   to {
+      transform: translateX(0%);
+   }
 }
 
 @keyframes untoggleMenu {
-    from {
-        transform: translateX(0%);
-    }
-    to {
-        transform: translateX(100%);
-    }
+   from {
+      transform: translateX(0%);
+   }
+   to {
+      transform: translateX(100%);
+   }
 }
 .background-animation {
-    background: linear-gradient(0deg, #111111, #25211f);
-    background-size: 400% 400%;
-    animation: backgroundAnimation 3s infinite alternate ease-in-out;
+   background: linear-gradient(0deg, #111111, #25211f);
+   background-size: 400% 400%;
+   animation: backgroundAnimation 3s infinite alternate ease-in-out;
+}
+.background-light-animation {
+   background: linear-gradient(0deg, #efefef, #d6d6d6);
+   background-size: 400% 400%;
+   animation: backgroundAnimation 3s infinite alternate ease-in-out;
 }
 @keyframes backgroundAnimation {
-    0% {
-        background-position: 0% 0%;
-    }
-    25% {
-        background-position: 100% 50%;
-    }
-    50% {
-        background-position: 50% 100%;
-    }
-    75% {
-        background-position: 0% 50%;
-    }
-    100% {
-        background-position: 50% 0%;
-    }
+   0% {
+      background-position: 0% 0%;
+   }
+   25% {
+      background-position: 100% 50%;
+   }
+   50% {
+      background-position: 50% 100%;
+   }
+   75% {
+      background-position: 0% 50%;
+   }
+   100% {
+      background-position: 50% 0%;
+   }
 }

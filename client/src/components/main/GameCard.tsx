@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react";
 
 import { useTheme } from "../../contexts/ThemeContextProvider";
-import { useState } from "react";
+
 import PlatformIcons from "./PlatformIcons";
 import type { GameTypes } from "../../lib/types";
 import CritiqueScore from "./CritiqueScore";
@@ -15,7 +15,6 @@ interface GameCardProps {
 
 const GameCard = ({ gameTypes, handleHover, hoveredCard }: GameCardProps) => {
    const { themes } = useTheme();
-   const [isImgLoading, setIsImgLoading] = useState(true);
 
    return (
       <li
@@ -23,18 +22,12 @@ const GameCard = ({ gameTypes, handleHover, hoveredCard }: GameCardProps) => {
             handleHover(gameTypes.id);
          }}
          onPointerLeave={() => handleHover(-1)}
-         className={` ${themes === "dark" ? "bg-[#1C1D1E] " : "bg-[#f5f5f5] [box-shadow:-2px_2px_6px_rgba(0,0,0,0.2)]"} w-[23rem] h-fit pb-8 rounded-2xl  overflow-hidden`}
+         className={` ${themes === "dark" ? "bg-[#1C1D1E] " : "bg-[#f5f5f5] [box-shadow:-2px_2px_6px_rgba(0,0,0,0.2)]"}  w-[23rem] h-fit pb-8 rounded-2xl  overflow-hidden`}
       >
-         {isImgLoading && (
-            <div
-               className={`${isImgLoading && "background-animation"} w-full h-full`}
-            ></div>
-         )}
          <img
             src={getCroppedImgUrl(gameTypes.background_image)}
             alt={gameTypes.slug}
             className="max-h-[50%] w-full"
-            onLoad={() => setIsImgLoading(false)}
          />
 
          <div className="flex flex-row justify-between items-center">
