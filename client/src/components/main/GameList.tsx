@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { useGame } from "../../lib/hooks/useGame";
+
 import GameCard from "./GameCard";
 import Header from "./Header";
 import GameCardSkeleton from "./GameCardSkeleton";
+import { useData } from "../../lib/hooks/useData";
+import type { GameTypes } from "../../lib/types";
 
 interface GameListProps {
    selectedCategory: string;
 }
 const GameList = ({ selectedCategory }: GameListProps) => {
-   const { games, errMsg, isLoading } = useGame();
+   const { datas, errMsg, isLoading } = useData<GameTypes>("games");
 
    const [hoveredCard, setHoveredCard] = useState<number>(-1);
 
@@ -19,7 +21,7 @@ const GameList = ({ selectedCategory }: GameListProps) => {
             {isLoading ? (
                <GameCardSkeleton />
             ) : (
-               games.map((game, index) => (
+               datas.map((game, index) => (
                   <GameCard
                      key={index}
                      gameTypes={game}

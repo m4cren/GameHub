@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
-import type { GameTypes } from "../types";
 
-import gameService from "../../services/game-client";
+import create from "../../services/data-client";
 
-export const useGame = () => {
-   const [games, setGames] = useState<GameTypes[]>([]);
+export const useData = <T>(request: "games" | "genres") => {
+   const [datas, setDatas] = useState<T[]>([]);
    const [isLoading, setIsLoading] = useState<boolean>(true);
    const [errMsg, setErrMsg] = useState<string>("");
 
    useEffect(() => {
-      const { response, controller } = gameService.getAllGames();
-
       const fetchGames = async () => {
          try {
-            const res = await response;
-            setGames(res.data.results);
+            const res = await create(`/${request}`).getAllData().response;
+            setDatas(res.data.results);
          } catch (error) {
             setErrMsg("There is a problem fetching data");
          } finally {
@@ -24,8 +21,8 @@ export const useGame = () => {
          }
       };
       fetchGames();
-      return () => controller.abort();
+      return () => create(`/${request}`).getAllData().controller.abort();
    }, []);
 
-   return { games, errMsg, isLoading };
+   return { datas, errMsg, isLoading };
 };
