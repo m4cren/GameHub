@@ -6,6 +6,7 @@ import PlatformIcons from "./PlatformIcons";
 import type { GameTypes } from "../../lib/types";
 import CritiqueScore from "./CritiqueScore";
 import getCroppedImgUrl from "../../services/img-url";
+import { memo } from "react";
 
 interface GameCardProps {
    gameTypes: GameTypes;
@@ -53,7 +54,9 @@ const GameCard = ({ gameTypes, handleHover, hoveredCard }: GameCardProps) => {
                </div>
                <div className="flex flex-row justify-between border-b-1 border-white/30 py-3">
                   <h4 className="opacity-50">Genres:</h4>
-                  <h4>{gameTypes.genres.map(({ name }) => name).join(", ")}</h4>
+                  <h4 className="text-end">
+                     {gameTypes.genres.map(({ name }) => name).join(", ")}
+                  </h4>
                </div>
             </div>
          )}
@@ -61,4 +64,4 @@ const GameCard = ({ gameTypes, handleHover, hoveredCard }: GameCardProps) => {
    );
 };
 
-export default GameCard;
+export default memo(GameCard);

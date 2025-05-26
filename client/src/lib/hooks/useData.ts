@@ -8,21 +8,20 @@ export const useData = <T>(request: "games" | "genres") => {
    const [errMsg, setErrMsg] = useState<string>("");
 
    useEffect(() => {
+      const { response, controller } = create(`/${request}`).getAllData();
       const fetchGames = async () => {
          try {
-            const res = await create(`/${request}`).getAllData().response;
+            const res = await response;
             setDatas(res.data.results);
-         } catch (error) {
+         } catch (error: any) {
             setErrMsg("There is a problem fetching data");
          } finally {
-            setTimeout(() => {
-               setIsLoading(false);
-            }, 3000);
+            setIsLoading(false);
          }
       };
       fetchGames();
-      return () => create(`/${request}`).getAllData().controller.abort();
-   }, []);
+      return () => controller.abort();
+   }, [request]);
 
    return { datas, errMsg, isLoading };
 };
