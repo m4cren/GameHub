@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { useState } from "react";
 
 import GameCard from "./GameCard";
 import Header from "./Header";
@@ -30,7 +30,7 @@ const GameList = ({
    );
 
    const [hoveredCard, setHoveredCard] = useState<number>(-1);
-   console.log(isLoading);
+
    const filteredGamesByPlatform =
       gameQuery.platformFilter !== "all"
          ? datas.filter(({ parent_platforms }) =>
@@ -41,6 +41,12 @@ const GameList = ({
                  .includes(gameQuery.platformFilter),
            )
          : datas;
+   console.log(
+      "Render: isLoading =",
+      isLoading,
+      "datas.length =",
+      datas.length,
+   );
 
    return (
       <div className="flex flex-col gap-15 mt-8 md:mt-0">
@@ -69,4 +75,4 @@ const GameList = ({
    );
 };
 
-export default memo(GameList);
+export default GameList;

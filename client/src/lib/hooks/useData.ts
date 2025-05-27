@@ -9,7 +9,7 @@ export const useData = <T>(
    deps?: any[],
 ) => {
    const [datas, setDatas] = useState<T[]>([]);
-   const [isLoading, setIsLoading] = useState<boolean>(false);
+   const [isLoading, setIsLoading] = useState<boolean>(true);
    const [errMsg, setErrMsg] = useState<string>("");
 
    useEffect(
@@ -26,7 +26,9 @@ export const useData = <T>(
             } catch (error: any) {
                setErrMsg("There is a problem fetching data");
             } finally {
-               setIsLoading(false);
+               setTimeout(() => {
+                  setIsLoading(false);
+               }, 1000);
             }
          };
          fetchGames();
