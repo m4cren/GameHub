@@ -3,13 +3,14 @@ import CategoryList from "../components/aside/CategoryList";
 import GameList from "../components/main/GameList";
 import NavBar from "../components/navbar/NavBar";
 import layout from "./main.module.css";
+import type { GenresTypes } from "../lib/types";
 
 const MainLayout = () => {
    const [selectedCategory, setSelectectedCategory] =
-      useState<string>("Action");
+      useState<GenresTypes | null>(null);
 
-   const handleSelectedCategory = useCallback((category: string) => {
-      setSelectectedCategory(category);
+   const handleSelectedCategory = useCallback((selectedGenre: GenresTypes) => {
+      setSelectectedCategory(selectedGenre);
    }, []);
    return (
       <div className={layout.main}>

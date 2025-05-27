@@ -1,4 +1,3 @@
-import { useTheme } from "../../contexts/ThemeContextProvider";
 import { useWindowResize } from "../../contexts/WindowSizeContextProvider";
 import { useData } from "../../lib/hooks/useData";
 import type { GenresTypes } from "../../lib/types";
@@ -7,8 +6,8 @@ import getCroppedImgUrl from "../../services/img-url";
 import CategorySkeleton from "./CategorySkeleton";
 
 interface CategoryListProps {
-   handleSelectedCategory: (category: string) => void;
-   selectedCategory: string;
+   handleSelectedCategory: (selectedCategory: GenresTypes) => void;
+   selectedCategory: GenresTypes | null;
 }
 
 const CategoryList = ({
@@ -26,18 +25,18 @@ const CategoryList = ({
             {isLoading ? (
                <CategorySkeleton />
             ) : (
-               datas.map(({ id, image_background, name }) => (
+               datas.map((data) => (
                   <li
-                     key={id}
-                     className={`${name === selectedCategory && "font-bold underline"} cursor-pointer hover:translate-x-3 transition duration-200 list-none flex flex-row gap-2 items-center`}
-                     onClick={() => handleSelectedCategory(name)}
+                     key={data.id}
+                     className={`${data.id === selectedCategory?.id && "font-bold underline"} cursor-pointer hover:translate-x-3 transition duration-200 list-none flex flex-row gap-2 items-center`}
+                     onClick={() => handleSelectedCategory(data)}
                   >
                      <img
-                        src={getCroppedImgUrl(image_background)}
+                        src={getCroppedImgUrl(data.image_background)}
                         alt=""
                         className={`  w-[3.5rem] h-[3.5rem] rounded-xl `}
                      />
-                     <p className="text-[1.4rem] font-ight">{name}</p>
+                     <p className="text-[1.4rem] font-ight">{data.name}</p>
                   </li>
                ))
             )}
