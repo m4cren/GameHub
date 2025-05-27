@@ -1,32 +1,56 @@
-import { useCallback, useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import CategoryList from "../components/aside/CategoryList";
 import GameList from "../components/main/GameList";
 import NavBar from "../components/navbar/NavBar";
 import layout from "./main.module.css";
-import type { GenresTypes } from "../lib/types";
+import type { GameQueryType, GenresTypes } from "../lib/types";
 
 const MainLayout = () => {
-   const [selectedCategory, setSelectectedCategory] =
-      useState<GenresTypes | null>(null);
+   const [gameQuery, setGameQuery] = useState<GameQueryType>({
+      genres: null,
+      platformFilter: "all",
+      orderBy: "default",
+      searchBy: "",
+   });
 
-   const handleSelectedCategory = useCallback((selectedGenre: GenresTypes) => {
-      setSelectectedCategory(selectedGenre);
-   }, []);
+   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+      console.log(e.target.value);
+      if (e.target) {
+         setGameQuery({ ...gameQuery, [e.target.name]: e.target.value });
+      }
+   };
+
+   const handlePlatformFilterer = (filterer: string) => {
+      setGameQuery({ ...gameQuery, platformFilter: filterer });
+   };
+
+   const handleSelectedCategory = (selectedGenre: GenresTypes) => {
+      setGameQuery({ ...gameQuery, genres: selectedGenre });
+   };
+
+   const handleOrderBy = (orderBy: string) => {
+      setGameQuery({ ...gameQuery, orderBy: orderBy });
+   };
    return (
       <div className={layout.main}>
          <nav className="">
             <NavBar
                handleSelectedCategory={handleSelectedCategory}
-               selectedCategory={selectedCategory}
+               gameQuery={gameQuery}
+               handleSearchChange={handleSearchChange}
             />
          </nav>
          <main className="">
-            <GameList selectedCategory={selectedCategory} />
+            <GameList
+               handleOrderBy={handleOrderBy}
+               handlePlatformFilter={handlePlatformFilterer}
+               gameQuery={gameQuery}
+            />
          </main>
          <aside className=" ">
             <CategoryList
                handleSelectedCategory={handleSelectedCategory}
-               selectedCategory={selectedCategory}
+               gameQuery={gameQuery}
             />
          </aside>
          <footer className="flex flex-row gap-2 justify-center items-center">

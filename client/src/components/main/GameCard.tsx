@@ -6,7 +6,7 @@ import PlatformIcons from "./PlatformIcons";
 import type { GameTypes } from "../../lib/types";
 import CritiqueScore from "./CritiqueScore";
 import getCroppedImgUrl from "../../services/img-url";
-import { memo } from "react";
+import Emoji from "./Emoji";
 
 interface GameCardProps {
    gameTypes: GameTypes;
@@ -26,18 +26,31 @@ const GameCard = ({ gameTypes, handleHover, hoveredCard }: GameCardProps) => {
          className={` ${themes === "dark" ? "bg-[#1C1D1E] " : "bg-[#f5f5f5] [box-shadow:-2px_2px_6px_rgba(0,0,0,0.2)]"}  w-[23rem] h-fit pb-8 rounded-2xl  overflow-hidden`}
       >
          <img
-            src={getCroppedImgUrl(gameTypes.background_image)}
+            src={
+               gameTypes.background_image
+                  ? getCroppedImgUrl(gameTypes.background_image)
+                  : "/images/default_img.webp"
+            }
             alt={gameTypes.slug}
             className="max-h-[50%] w-full"
          />
 
          <div className="flex flex-row justify-between items-center">
-            <PlatformIcons parent_platforms={gameTypes.parent_platforms} />
+            <PlatformIcons
+               parent_platforms={gameTypes.parent_platforms.map(
+                  ({ platform }) => {
+                     return platform;
+                  },
+               )}
+            />
             <CritiqueScore metacritic={gameTypes.metacritic} />
          </div>
 
          <div className="pl-5">
-            <h1 className="text-[1.75rem] font-medium">{gameTypes.name}</h1>
+            <h1 className="text-[1.75rem] font-medium">
+               {gameTypes.name}
+               <Emoji ratings={gameTypes.rating_top} />
+            </h1>
          </div>
          <span
             className={`${themes === "dark" ? "bg-[#373737]" : "bg-[#f5f5f5] [box-shadow:-1px_1px_3px_rgba(0,0,0,0.2)]"} flex ml-5 my-2 flex-row gap-2 items-center justify-center px-2 py-1 w-[5rem]  rounded-sm`}
@@ -64,4 +77,4 @@ const GameCard = ({ gameTypes, handleHover, hoveredCard }: GameCardProps) => {
    );
 };
 
-export default memo(GameCard);
+export default GameCard;

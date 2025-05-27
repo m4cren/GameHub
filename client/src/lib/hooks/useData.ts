@@ -4,7 +4,7 @@ import create from "../../services/data-client";
 import type { AxiosRequestConfig } from "axios";
 
 export const useData = <T>(
-   select: "games" | "genres",
+   select: "games" | "genres" | "platforms/lists/parents",
    requestConfig?: AxiosRequestConfig,
    deps?: any[],
 ) => {
@@ -14,12 +14,12 @@ export const useData = <T>(
 
    useEffect(
       () => {
+         setIsLoading(true);
          const { response, controller } = create(
             `/${select}`,
             requestConfig,
          ).getAllData();
          const fetchGames = async () => {
-            setIsLoading(true);
             try {
                const res = await response;
                setDatas(res.data.results);

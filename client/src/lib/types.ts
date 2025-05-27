@@ -13,11 +13,9 @@ export type GenresTypes = {
 };
 
 export type ParentPlatformTypes = {
-   platform: {
-      id: number;
-      name: string;
-      slug: string;
-   };
+   id: number;
+   name: string;
+   slug: string;
 };
 
 export type PlatformTypes = {
@@ -51,7 +49,9 @@ export type GameTypes = {
    metacritic: number;
    esrb_rating: EsbrRatingTypes;
    genres: GenresTypes[];
-   parent_platforms: ParentPlatformTypes[];
+   parent_platforms: {
+      platform: ParentPlatformTypes;
+   }[];
    platforms: PlatformTypes[];
    playtime: number;
    rating: number;
@@ -85,4 +85,11 @@ export type GenresListTypes = {
    image_background: string;
    name: string;
    slug: string;
+};
+
+export type GameQueryType = {
+   genres: GenresTypes | null;
+   platformFilter: string;
+   orderBy: string;
+   searchBy: string;
 };

@@ -1,17 +1,22 @@
 import SearchBar from "./SearchBar";
 import DarkMode from "./DarkMode";
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import { Menu } from "lucide-react";
 import MenuPhone from "../aside/MenuPhone";
 import { useWindowResize } from "../../contexts/WindowSizeContextProvider";
-import type { GenresTypes } from "../../lib/types";
+import type { GameQueryType, GenresTypes } from "../../lib/types";
 
 interface NavBarProps {
    handleSelectedCategory: (selectedCategory: GenresTypes) => void;
-   selectedCategory: GenresTypes | null;
+   handleSearchChange: (e: ChangeEvent<HTMLInputElement>) => void;
+   gameQuery: GameQueryType;
 }
 
-const NavBar = ({ handleSelectedCategory, selectedCategory }: NavBarProps) => {
+const NavBar = ({
+   handleSelectedCategory,
+   gameQuery,
+   handleSearchChange,
+}: NavBarProps) => {
    const { screenWidth } = useWindowResize();
    const [isMenu, setIsMenu] = useState<boolean>(false);
 
@@ -29,7 +34,7 @@ const NavBar = ({ handleSelectedCategory, selectedCategory }: NavBarProps) => {
             <MenuPhone
                handleToggle={handleToggle}
                handleSelectedCategory={handleSelectedCategory}
-               selectedCategory={selectedCategory}
+               gameQuery={gameQuery}
             />
          )}
          <div
@@ -38,7 +43,10 @@ const NavBar = ({ handleSelectedCategory, selectedCategory }: NavBarProps) => {
             <h1 className="text-[1.75rem] md:text-[2rem] lg:text-[2.25rem] font-bold ">
                {screenWidth <= 450 ? "GHub" : "GameHub"}
             </h1>
-            <SearchBar />
+            <SearchBar
+               handleSearchChange={handleSearchChange}
+               gameQuery={gameQuery}
+            />
             {screenWidth <= 850 && (
                <Menu
                   size={40}

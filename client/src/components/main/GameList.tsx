@@ -4,30 +4,56 @@ import GameCard from "./GameCard";
 import Header from "./Header";
 import GameCardSkeleton from "./GameCardSkeleton";
 import { useData } from "../../lib/hooks/useData";
-import type { GameTypes, GenresTypes } from "../../lib/types";
+import type { GameQueryType, GameTypes } from "../../lib/types";
 
 interface GameListProps {
-   selectedCategory: GenresTypes | null;
+   handlePlatformFilter: (filterer: string) => void;
+   handleOrderBy: (orderBy: string) => void;
+   gameQuery: GameQueryType;
 }
-const GameList = ({ selectedCategory }: GameListProps) => {
+const GameList = ({
+   gameQuery,
+   handlePlatformFilter,
+   handleOrderBy,
+}: GameListProps) => {
    const { datas, isLoading } = useData<GameTypes>(
       "games",
       {
-         params: { genres: selectedCategory?.id, page_size: 300 },
+         params: {
+            genres: gameQuery.genres?.id,
+            page_size: 300,
+            ordering: gameQuery.orderBy,
+            search: gameQuery.searchBy,
+         },
       },
-      [selectedCategory?.id],
+      [gameQuery],
    );
 
    const [hoveredCard, setHoveredCard] = useState<number>(-1);
+   console.log(isLoading);
+   const filteredGamesByPlatform =
+      gameQuery.platformFilter !== "all"
+         ? datas.filter(({ parent_platforms }) =>
+              parent_platforms
+                 .map(({ platform }) => {
+                    return platform.slug;
+                 })
+                 .includes(gameQuery.platformFilter),
+           )
+         : datas;
 
    return (
       <div className="flex flex-col gap-15 mt-8 md:mt-0">
-         <Header selectedCategory={selectedCategory} />
+         <Header
+            handleOrderBy={handleOrderBy}
+            gameQuery={gameQuery}
+            handlePlatformFilter={handlePlatformFilter}
+         />
          <ul className="grid  grid-cols-[repeat(auto-fill,minmax(300px,1fr))] pb-50 gap-6 w-[100vw] lg:w-[63vw] justify-items-center  md:px-12 lg:px-0">
             {isLoading ? (
                <GameCardSkeleton />
             ) : (
-               datas.map((game, index) => (
+               filteredGamesByPlatform.map((game, index) => (
                   <GameCard
                      key={index}
                      gameTypes={game}

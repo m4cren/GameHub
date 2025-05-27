@@ -3,18 +3,18 @@ import DarkMode from "../navbar/DarkMode";
 import { useTheme } from "../../contexts/ThemeContextProvider";
 import { useState } from "react";
 import CategoryList from "./CategoryList";
-import type { GenresTypes } from "../../lib/types";
+import type { GameQueryType, GenresTypes } from "../../lib/types";
 
 interface MenuPhoneProps {
    handleSelectedCategory: (selectedCategory: GenresTypes) => void;
-   selectedCategory: GenresTypes | null;
+   gameQuery: GameQueryType;
 
    handleToggle: (action: "toggle" | "untoggle") => void;
 }
 const MenuPhone = ({
    handleToggle,
    handleSelectedCategory,
-   selectedCategory,
+   gameQuery,
 }: MenuPhoneProps) => {
    const { themes } = useTheme();
    const [isClosing, setIsClosing] = useState<boolean>(false);
@@ -39,7 +39,7 @@ const MenuPhone = ({
          />
          <CategoryList
             handleSelectedCategory={handleSelectedCategory}
-            selectedCategory={selectedCategory}
+            gameQuery={gameQuery}
          />
       </div>
    );

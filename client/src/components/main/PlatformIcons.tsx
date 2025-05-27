@@ -31,11 +31,14 @@ const PlatformIcons = ({
 
    return (
       <div className="flex flex-row pl-5 gap-2  py-6">
-         {parent_platforms?.map(({ platform }) => {
-            const IconComponent = iconMaps[platform.slug];
+         {parent_platforms.map(({ id, slug, name }) => {
+            const IconComponent = iconMaps[slug];
+
             return IconComponent ? (
-               <IconComponent key={platform.id} size={16} opacity={0.65} />
-            ) : null;
+               <IconComponent key={id} size={16} opacity={0.65} />
+            ) : (
+               <h1>{name}</h1>
+            );
          })}
       </div>
    );
